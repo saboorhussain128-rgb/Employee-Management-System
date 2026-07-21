@@ -13,19 +13,29 @@ const dotenv = require("dotenv");
 // Load Environment Variables
 dotenv.config();
 
+// Database
 const connectDB = require("./config/db");
+
+// Routes
 const indexRoutes = require("./routes/indexRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 // Connect Database
 connectDB();
 
 const app = express();
 
-// Body Parser
+/* ==================================================
+   BODY PARSER
+================================================== */
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Session Configuration
+/* ==================================================
+   SESSION
+================================================== */
+
 app.use(
     session({
         secret: process.env.SESSION_SECRET,
@@ -34,7 +44,10 @@ app.use(
     })
 );
 
-// View Engine
+/* ==================================================
+   VIEW ENGINE
+================================================== */
+
 app.set("view engine", "ejs");
 
 app.set(
@@ -42,17 +55,27 @@ app.set(
     path.join(__dirname, "../frontend/views")
 );
 
-// Static Files
+/* ==================================================
+   STATIC FILES
+================================================== */
+
 app.use(
     express.static(
         path.join(__dirname, "../frontend/public")
     )
 );
 
-// Routes
-app.use("/", indexRoutes);
+/* ==================================================
+   ROUTES
+================================================== */
 
-// Start Server
+app.use("/", indexRoutes);
+app.use("/", authRoutes);
+
+/* ==================================================
+   SERVER
+================================================== */
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
