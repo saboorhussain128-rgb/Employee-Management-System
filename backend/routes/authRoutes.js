@@ -11,6 +11,8 @@ const router = express.Router();
 
 const authController = require("../controllers/authController");
 
+const hrController = require("../controllers/hrController");
+
 const authMiddleware = require("../middleware/authMiddleware");
 
 /* ==================================================
@@ -52,7 +54,7 @@ router.post(
 router.get(
     "/hr/dashboard",
     authMiddleware.isHRLoggedIn,
-    authController.hrDashboard
+    hrController.dashboard
 );
 
 /* ==================================================

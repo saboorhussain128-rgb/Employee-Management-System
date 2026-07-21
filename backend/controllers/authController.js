@@ -212,19 +212,6 @@ exports.hrLogin = async (req, res) => {
 
 };
 
-/* ==================================================
-   HR DASHBOARD
-================================================== */
-
-exports.hrDashboard = (req, res) => {
-
-    res.render("hr/dashboard", {
-
-        user: req.session.user
-
-    });
-
-};
 
 /* ==================================================
    LOGOUT
