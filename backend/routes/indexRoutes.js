@@ -9,9 +9,41 @@ const express = require("express");
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
+const User = require("../models/User");
 
-    res.render("index");
+/* ==================================================
+   LANDING PAGE
+================================================== */
+
+router.get("/", async (req, res) => {
+
+    try {
+
+        const hrExists = await User.findOne({
+
+            role: "HR"
+
+        });
+
+        res.render("index", {
+
+            hrExists
+
+        });
+
+    }
+
+    catch (error) {
+
+        console.log(error);
+
+        res.render("index", {
+
+            hrExists: null
+
+        });
+
+    }
 
 });
 

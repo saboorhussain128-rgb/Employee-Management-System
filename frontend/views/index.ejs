@@ -10,17 +10,24 @@
 
     <title>Employee Management System</title>
 
-    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet"
+          href="/css/index.css">
 
 </head>
 
 <body>
 
-    <div class="container">
+<div class="container">
 
-        <div class="landing-card">
+    <div class="landing-card">
 
-            <h1>Employee Management System</h1>
+        <h1>
+
+            Employee Management System
+
+        </h1>
+
+        <% if(!hrExists){ %>
 
             <p class="welcome">
 
@@ -30,9 +37,14 @@
 
             <div class="divider"></div>
 
-            <h3>New to the system?</h3>
+            <h3>
 
-            <a href="/hr/setup" class="btn btn-primary">
+                New to the system?
+
+            </h3>
+
+            <a href="/hr/setup"
+               class="btn btn-primary">
 
                 Create HR Account
 
@@ -44,15 +56,41 @@
 
             </h3>
 
-            <a href="/hr/login" class="btn btn-secondary">
+            <a href="/hr/login"
+               class="btn btn-secondary">
 
                 HR Login
 
             </a>
 
-        </div>
+        <% } else { %>
+
+            <p class="welcome">
+
+                Welcome Back
+
+            </p>
+
+            <div class="divider"></div>
+
+            <h3>
+
+                HR Account Already Exists
+
+            </h3>
+
+            <a href="/hr/login"
+               class="btn btn-secondary">
+
+                HR Login
+
+            </a>
+
+        <% } %>
 
     </div>
+
+</div>
 
 </body>
 
