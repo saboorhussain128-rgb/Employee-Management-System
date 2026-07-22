@@ -1,0 +1,129 @@
+/*
+==================================================
+EMPLOYEE MODULE CSS
+Employee Management System
+==================================================
+*/
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f4f6f9;
+}
+
+/* ==========================================
+Dashboard Layout
+========================================== */
+
+.dashboard-container{
+    display:flex;
+    min-height:100vh;
+}
+
+/* ==========================================
+Main Content
+========================================== */
+
+.main-content{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+}
+
+/* ==========================================
+Page Content
+========================================== */
+
+.page-content{
+    padding:30px;
+}
+
+/* ==========================================
+Header
+========================================== */
+
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+    flex-wrap:wrap;
+    gap:20px;
+}
+
+.page-header h1{
+    font-size:30px;
+    color:#222;
+}
+
+.page-header p{
+    margin-top:6px;
+    color:#666;
+    font-size:15px;
+}
+
+/* ==========================================
+Buttons
+========================================== */
+
+.page-actions{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    text-decoration:none;
+    padding:11px 22px;
+    border-radius:6px;
+    color:#fff;
+    font-size:15px;
+    border:none;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.btn:hover{
+    opacity:.9;
+}
+
+.btn-primary{
+    background:#2563eb;
+}
+
+.btn-secondary{
+    background:#555;
+}
+
+.btn-success{
+    background:#16a34a;
+}
+
+.btn-warning{
+    background:#f59e0b;
+}
+
+/* ==========================================
+Alert
+========================================== */
+
+.alert{
+
+    background:#fdecec;
+
+    color:#b91c1c;
+
+    padding:15px;
+
+    border-radius:8px;
+
+    margin-bottom:20px;
+
+    border:1px solid #f5c2c7;
+
+}
