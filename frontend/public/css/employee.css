@@ -127,3 +127,78 @@ Alert
     border:1px solid #f5c2c7;
 
 }
+
+
+/* ==========================================
+EMPLOYEE TABLE
+========================================== */
+
+.employee-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    background:#fff;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+    margin-top:20px;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+
+}
+
+.employee-table th{
+
+    background:#2563eb;
+
+    color:#fff;
+
+    padding:15px;
+
+    text-align:left;
+
+}
+
+.employee-table td{
+
+    padding:15px;
+
+    border-bottom:1px solid #eee;
+
+}
+
+.employee-table tr:hover{
+
+    background:#f8f9fa;
+
+}
+
+.dashboard-box{
+
+    background:#fff;
+
+    padding:40px;
+
+    border-radius:10px;
+
+    text-align:center;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+
+}
+
+.dashboard-box h2{
+
+    margin-bottom:10px;
+
+}
+
+.dashboard-box p{
+
+    color:#666;
+
+}
