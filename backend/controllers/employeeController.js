@@ -297,13 +297,110 @@ exports.updateEmployee = async (req, res) => {
 
     try {
 
-        await Employee.findByIdAndUpdate(
+        const employee = await Employee.findById(req.params.id);
 
-            req.params.id,
+        if (!employee) {
 
-            req.body
+            return res.redirect("/hr/employees");
 
-        );
+        }
+
+        const {
+
+            name,
+            email,
+            phone,
+            gender,
+            department,
+            designation,
+            joiningDate,
+            salary,
+            address,
+            emergencyContact,
+            bloodGroup,
+            status
+
+        } = req.body;
+
+        // Required Validation
+
+        if (
+
+            !name ||
+            !email ||
+            !phone ||
+            !department ||
+            !designation ||
+            !joiningDate
+
+        ) {
+
+            return res.render(
+
+                "employees/editEmployee",
+
+                {
+
+                    title: "Edit Employee",
+
+                    user: req.session.user,
+
+                    employee,
+
+                    error: "Please fill all required fields."
+
+                }
+
+            );
+
+        }
+
+        // Duplicate Email Check
+
+        const emailExists = await Employee.findOne({
+
+            email,
+
+            _id: { $ne: employee._id }
+
+        });
+
+        if (emailExists) {
+
+            return res.render(
+
+                "employees/editEmployee",
+
+                {
+
+                    title: "Edit Employee",
+
+                    user: req.session.user,
+
+                    employee,
+
+                    error: "Email already exists."
+
+                }
+
+            );
+
+        }
+
+        employee.name = name;
+        employee.email = email;
+        employee.phone = phone;
+        employee.gender = gender;
+        employee.department = department;
+        employee.designation = designation;
+        employee.joiningDate = joiningDate;
+        employee.salary = salary;
+        employee.address = address;
+        employee.emergencyContact = emergencyContact;
+        employee.bloodGroup = bloodGroup;
+        employee.status = status;
+
+        await employee.save();
 
         res.redirect("/hr/employees");
 
@@ -312,6 +409,8 @@ exports.updateEmployee = async (req, res) => {
     catch (error) {
 
         console.log(error);
+
+        res.redirect("/hr/employees");
 
     }
 
