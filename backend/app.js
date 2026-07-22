@@ -19,6 +19,7 @@ const connectDB = require("./config/db");
 // Routes
 const indexRoutes = require("./routes/indexRoutes");
 const authRoutes = require("./routes/authRoutes");
+const employeeRoutes = require("./routes/employeeRoutes");
 
 // Connect Database
 connectDB();
@@ -69,8 +70,14 @@ app.use(
    ROUTES
 ================================================== */
 
+// Landing Page
 app.use("/", indexRoutes);
+
+// Authentication
 app.use("/", authRoutes);
+
+// Employee Management
+app.use("/", employeeRoutes);
 
 /* ==================================================
    SERVER
