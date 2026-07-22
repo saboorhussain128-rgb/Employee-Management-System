@@ -47,7 +47,7 @@ router.get(
 
     authMiddleware.isHRLoggedIn,
 
-    employeeController.viewEmployeesPage
+    employeeController.viewEmployees
 
 );
 

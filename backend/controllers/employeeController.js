@@ -5,8 +5,7 @@ Employee Management System
 ==================================================
 */
 
-const User = require("../models/User");
-const bcrypt = require("bcryptjs");
+const Employee = require("../models/Employee");
 
 /* ==================================================
    CREATE EMPLOYEE PAGE
@@ -27,7 +26,7 @@ exports.createEmployeePage = (req, res) => {
 };
 
 /* ==================================================
-   SAVE EMPLOYEE
+   CREATE EMPLOYEE
 ================================================== */
 
 exports.createEmployee = async (req, res) => {
@@ -36,60 +35,103 @@ exports.createEmployee = async (req, res) => {
 
         const {
 
+            employeeId,
+
             name,
-            username,
+
             email,
-            password,
+
             phone,
+
             gender,
+
             department,
+
             designation,
+
             joiningDate,
+
             salary,
+
+            address,
+
+            emergencyContact,
+
+            bloodGroup,
+
             status
 
         } = req.body;
 
+        // Required Fields
+
         if (
+
+            !employeeId ||
+
             !name ||
-            !username ||
+
             !email ||
-            !password
+
+            !phone ||
+
+            !department ||
+
+            !designation ||
+
+            !joiningDate
+
         ) {
 
-            return res.render("employees/createEmployee", {
+            return res.render(
 
-                title: "Create Employee",
+                "employees/createEmployee",
 
-                user: req.session.user,
+                {
 
-                error: "Please fill all required fields."
+                    title: "Create Employee",
 
-            });
+                    user: req.session.user,
+
+                    error: "Please fill all required fields."
+
+                }
+
+            );
 
         }
 
-        const usernameExists = await User.findOne({
+        // Check Employee ID
 
-            username
+        const employeeExists = await Employee.findOne({
+
+            employeeId
 
         });
 
-        if (usernameExists) {
+        if (employeeExists) {
 
-            return res.render("employees/createEmployee", {
+            return res.render(
 
-                title: "Create Employee",
+                "employees/createEmployee",
 
-                user: req.session.user,
+                {
 
-                error: "Username already exists."
+                    title: "Create Employee",
 
-            });
+                    user: req.session.user,
+
+                    error: "Employee ID already exists."
+
+                }
+
+            );
 
         }
 
-        const emailExists = await User.findOne({
+        // Check Email
+
+        const emailExists = await Employee.findOne({
 
             email
 
@@ -97,31 +139,33 @@ exports.createEmployee = async (req, res) => {
 
         if (emailExists) {
 
-            return res.render("employees/createEmployee", {
+            return res.render(
 
-                title: "Create Employee",
+                "employees/createEmployee",
 
-                user: req.session.user,
+                {
 
-                error: "Email already exists."
+                    title: "Create Employee",
 
-            });
+                    user: req.session.user,
+
+                    error: "Email already exists."
+
+                }
+
+            );
 
         }
 
-        const hashedPassword = await bcrypt.hash(password, 10);
+        // Save Employee
 
-        const employee = new User({
+        const employee = new Employee({
+
+            employeeId,
 
             name,
 
-            username,
-
             email,
-
-            password: hashedPassword,
-
-            role: "Employee",
 
             phone,
 
@@ -135,7 +179,15 @@ exports.createEmployee = async (req, res) => {
 
             salary,
 
-            status
+            address,
+
+            emergencyContact,
+
+            bloodGroup,
+
+            status,
+
+            createdBy: req.session.user.id
 
         });
 
@@ -149,15 +201,21 @@ exports.createEmployee = async (req, res) => {
 
         console.log(error);
 
-        res.render("employees/createEmployee", {
+        res.render(
 
-            title: "Create Employee",
+            "employees/createEmployee",
 
-            user: req.session.user,
+            {
 
-            error: "Something went wrong."
+                title: "Create Employee",
 
-        });
+                user: req.session.user,
+
+                error: "Something went wrong."
+
+            }
+
+        );
 
     }
 
@@ -167,29 +225,33 @@ exports.createEmployee = async (req, res) => {
    VIEW EMPLOYEES
 ================================================== */
 
-exports.viewEmployeesPage = async (req, res) => {
+exports.viewEmployees = async (req, res) => {
 
     try {
 
-        const employees = await User.find({
+        const employees = await Employee.find()
 
-            role: "Employee"
+            .sort({
 
-        }).sort({
+                createdAt: -1
 
-            createdAt: -1
+            });
 
-        });
+        res.render(
 
-        res.render("employees/viewEmployees", {
+            "employees/viewEmployees",
 
-            title: "Employees",
+            {
 
-            user: req.session.user,
+                title: "Employees",
 
-            employees
+                user: req.session.user,
 
-        });
+                employees
+
+            }
+
+        );
 
     }
 
@@ -202,28 +264,34 @@ exports.viewEmployeesPage = async (req, res) => {
 };
 
 /* ==================================================
-   EDIT PAGE
+   EDIT EMPLOYEE PAGE
 ================================================== */
 
 exports.editEmployeePage = async (req, res) => {
 
     try {
 
-        const employee = await User.findById(
+        const employee = await Employee.findById(
 
             req.params.id
 
         );
 
-        res.render("employees/editEmployee", {
+        res.render(
 
-            title: "Edit Employee",
+            "employees/editEmployee",
 
-            user: req.session.user,
+            {
 
-            employee
+                title: "Edit Employee",
 
-        });
+                user: req.session.user,
+
+                employee
+
+            }
+
+        );
 
     }
 
@@ -243,7 +311,7 @@ exports.updateEmployee = async (req, res) => {
 
     try {
 
-        await User.findByIdAndUpdate(
+        await Employee.findByIdAndUpdate(
 
             req.params.id,
 
@@ -271,7 +339,7 @@ exports.deleteEmployee = async (req, res) => {
 
     try {
 
-        await User.findByIdAndDelete(
+        await Employee.findByIdAndDelete(
 
             req.params.id
 
