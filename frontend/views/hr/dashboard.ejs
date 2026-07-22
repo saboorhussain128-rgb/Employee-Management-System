@@ -1,76 +1,97 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include("../partials/head", { title: title }) %>
 
-<head>
+<div class="dashboard-container">
 
-    <meta charset="UTF-8">
+    <!-- Sidebar -->
+    <%- include("../partials/sidebar") %>
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <!-- Main Content -->
+    <div class="main-content">
 
-    <title>HR Dashboard</title>
+        <!-- Header -->
+        <%- include("../partials/header", { user: user }) %>
 
-    <link rel="stylesheet" href="/css/hr-dashboard.css">
+        <!-- Dashboard Content -->
+        <div class="content">
 
-</head>
+            <h1 class="page-title">
 
-<body>
+                HR Dashboard
 
-    <div class="container">
+            </h1>
 
-        <!-- Sidebar -->
-        <aside class="sidebar">
+            <p class="page-subtitle">
 
-            <h2>EMS</h2>
+                Welcome back,
 
-            <ul>
-
-                <li><a href="/hr/dashboard">Dashboard</a></li>
-
-                <li><a href="#">Employees Onboard</a></li>
-
-                <li><a href="#">Employees List</a></li>
-
-                <li><a href="#">Leave Manager</a></li>
-
-                <li><a href="#">Finance Management</a></li>
-
-                <li><a href="#">Manager Management</a></li>
-
-                <li><a href="#">Role Management</a></li>
-
-                <li><a href="#">Attendance</a></li>
-
-                <li><a href="#">Reports</a></li>
-
-                <li><a href="/logout">Logout</a></li>
-
-            </ul>
-
-        </aside>
-
-        <!-- Main Content -->
-
-        <main class="content">
-
-            <h1>Welcome, <%= user.name %></h1>
-
-            <br>
-
-            <h3>HR Dashboard</h3>
-
-            <br>
-
-            <p>
-
-                Login Successful 🎉
+                <strong><%= user.name %></strong>
 
             </p>
 
-        </main>
+            <!-- Dashboard Cards -->
+
+            <div class="cards">
+
+                <div class="card">
+
+                    <h3>Total Employees</h3>
+
+                    <h1>0</h1>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>Total Managers</h3>
+
+                    <h1>0</h1>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>Total Finance</h3>
+
+                    <h1>0</h1>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>Pending Leaves</h3>
+
+                    <h1>0</h1>
+
+                </div>
+
+            </div>
+
+            <!-- Dashboard Information -->
+
+            <div class="dashboard-box">
+
+                <h2>
+
+                    Welcome to Employee Management System
+
+                </h2>
+
+                <p>
+
+                    This is your HR Dashboard.
+
+                    From here you can manage employees,
+                    managers, finance users, leave requests,
+                    attendance, departments and reports.
+
+                </p>
+
+            </div>
+
+        </div>
 
     </div>
 
-</body>
+</div>
 
-</html>
+<%- include("../partials/footer") %>
