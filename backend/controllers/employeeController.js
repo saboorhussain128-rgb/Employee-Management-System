@@ -35,8 +35,6 @@ exports.createEmployee = async (req, res) => {
 
         const {
 
-            employeeId,
-
             name,
 
             email,
@@ -63,11 +61,11 @@ exports.createEmployee = async (req, res) => {
 
         } = req.body;
 
-        // Required Fields
+        /* ==========================================
+           VALIDATION
+        ========================================== */
 
         if (
-
-            !employeeId ||
 
             !name ||
 
@@ -101,35 +99,9 @@ exports.createEmployee = async (req, res) => {
 
         }
 
-        // Check Employee ID
-
-        const employeeExists = await Employee.findOne({
-
-            employeeId
-
-        });
-
-        if (employeeExists) {
-
-            return res.render(
-
-                "employees/createEmployee",
-
-                {
-
-                    title: "Create Employee",
-
-                    user: req.session.user,
-
-                    error: "Employee ID already exists."
-
-                }
-
-            );
-
-        }
-
-        // Check Email
+        /* ==========================================
+           EMAIL CHECK
+        ========================================== */
 
         const emailExists = await Employee.findOne({
 
@@ -149,7 +121,7 @@ exports.createEmployee = async (req, res) => {
 
                     user: req.session.user,
 
-                    error: "Email already exists."
+                    error: "Employee email already exists."
 
                 }
 
@@ -157,7 +129,21 @@ exports.createEmployee = async (req, res) => {
 
         }
 
-        // Save Employee
+        /* ==========================================
+           AUTO GENERATE EMPLOYEE ID
+        ========================================== */
+
+        const totalEmployees = await Employee.countDocuments();
+
+        const employeeId =
+
+            "EMP" +
+
+            String(totalEmployees + 1).padStart(4, "0");
+
+        /* ==========================================
+           SAVE EMPLOYEE
+        ========================================== */
 
         const employee = new Employee({
 
