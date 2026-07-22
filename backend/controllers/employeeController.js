@@ -215,11 +215,89 @@ exports.viewEmployees = async (req, res) => {
 
     try {
 
-        const employees = await Employee.find().sort({
+        const search = req.query.search || "";
 
-            createdAt: -1
+        let query = {};
 
-        });
+        if (search) {
+
+            query = {
+
+                $or: [
+
+                    {
+
+                        employeeId: {
+
+                            $regex: search,
+
+                            $options: "i"
+
+                        }
+
+                    },
+
+                    {
+
+                        name: {
+
+                            $regex: search,
+
+                            $options: "i"
+
+                        }
+
+                    },
+
+                    {
+
+                        email: {
+
+                            $regex: search,
+
+                            $options: "i"
+
+                        }
+
+                    },
+
+                    {
+
+                        department: {
+
+                            $regex: search,
+
+                            $options: "i"
+
+                        }
+
+                    },
+
+                    {
+
+                        designation: {
+
+                            $regex: search,
+
+                            $options: "i"
+
+                        }
+
+                    }
+
+                ]
+
+            };
+
+        }
+
+        const employees = await Employee.find(query)
+
+            .sort({
+
+                createdAt: -1
+
+            });
 
         const stats = {
 
@@ -265,7 +343,9 @@ exports.viewEmployees = async (req, res) => {
 
                 employees,
 
-                stats
+                stats,
+
+                search
 
             }
 
@@ -273,7 +353,7 @@ exports.viewEmployees = async (req, res) => {
 
     }
 
-    catch(error){
+    catch (error) {
 
         console.log(error);
 

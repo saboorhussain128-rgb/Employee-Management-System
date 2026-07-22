@@ -195,6 +195,57 @@
 
 </div>
 
+<!-- ==========================================
+SEARCH BAR
+========================================== -->
+
+<div class="search-box">
+
+    <form
+        action="/hr/employees"
+        method="GET"
+    >
+
+        <input
+
+            type="text"
+
+            name="search"
+
+            placeholder="Search by Employee ID, Name, Email, Department or Designation..."
+
+            value="<%= search %>"
+
+        >
+
+        <button
+
+            type="submit"
+
+            class="btn btn-primary"
+
+        >
+
+            Search
+
+        </button>
+
+        <a
+
+            href="/hr/employees"
+
+            class="btn btn-secondary"
+
+        >
+
+            Reset
+
+        </a>
+
+    </form>
+
+</div>
+
 <!-- ==================================================
 DELETE EMPLOYEE MODAL
 ================================================== -->
