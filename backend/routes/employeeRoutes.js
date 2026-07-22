@@ -27,6 +27,16 @@ router.get(
 
 );
 
+router.post(
+
+    "/hr/employees/create",
+
+    authMiddleware.isHRLoggedIn,
+
+    employeeController.createEmployee
+
+);
+
 /* ==================================================
    VIEW EMPLOYEES
 ================================================== */
@@ -38,6 +48,44 @@ router.get(
     authMiddleware.isHRLoggedIn,
 
     employeeController.viewEmployeesPage
+
+);
+
+/* ==================================================
+   EDIT EMPLOYEE
+================================================== */
+
+router.get(
+
+    "/hr/employees/edit/:id",
+
+    authMiddleware.isHRLoggedIn,
+
+    employeeController.editEmployeePage
+
+);
+
+router.post(
+
+    "/hr/employees/edit/:id",
+
+    authMiddleware.isHRLoggedIn,
+
+    employeeController.updateEmployee
+
+);
+
+/* ==================================================
+   DELETE EMPLOYEE
+================================================== */
+
+router.get(
+
+    "/hr/employees/delete/:id",
+
+    authMiddleware.isHRLoggedIn,
+
+    employeeController.deleteEmployee
 
 );
 

@@ -1,0 +1,303 @@
+<%- include("../partials/head", { title: title }) %>
+
+<link rel="stylesheet" href="/css/employee.css">
+
+<div class="dashboard-container">
+
+    <%- include("../partials/sidebar") %>
+
+    <div class="main-content">
+
+        <%- include("../partials/header", { user: user }) %>
+
+        <div class="page-content">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h1>Create Employee</h1>
+
+                    <p>Add a new employee to the Employee Management System.</p>
+
+                </div>
+
+                <div class="page-actions">
+
+                    <a href="/hr/dashboard" class="btn btn-secondary">
+
+                        Back to Dashboard
+
+                    </a>
+
+                    <a href="/hr/employees" class="btn btn-primary">
+
+                        View Employees
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            <% if(error){ %>
+
+                <div class="alert">
+
+                    <%= error %>
+
+                </div>
+
+            <% } %>
+
+            <form
+                action="/hr/employees/create"
+                method="POST"
+                class="employee-form"
+            >
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Full Name *
+
+                        </label>
+
+                        <input
+                            type="text"
+                            name="name"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Username *
+
+                        </label>
+
+                        <input
+                            type="text"
+                            name="username"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Email *
+
+                        </label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Password *
+
+                        </label>
+
+                        <input
+                            type="password"
+                            name="password"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Phone
+
+                        </label>
+
+                        <input
+                            type="text"
+                            name="phone"
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Gender
+
+                        </label>
+
+                        <select
+                            name="gender"
+                        >
+
+                            <option>
+
+                                Male
+
+                            </option>
+
+                            <option>
+
+                                Female
+
+                            </option>
+
+                            <option>
+
+                                Other
+
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Department
+
+                        </label>
+
+                        <input
+                            type="text"
+                            name="department"
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Designation
+
+                        </label>
+
+                        <input
+                            type="text"
+                            name="designation"
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Joining Date
+
+                        </label>
+
+                        <input
+                            type="date"
+                            name="joiningDate"
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Salary
+
+                        </label>
+
+                        <input
+                            type="number"
+                            name="salary"
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Status
+
+                        </label>
+
+                        <select
+                            name="status"
+                        >
+
+                            <option>
+
+                                Active
+
+                            </option>
+
+                            <option>
+
+                                Inactive
+
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div class="button-group">
+
+                    <button
+                        type="submit"
+                        class="btn btn-success"
+                    >
+
+                        Save Employee
+
+                    </button>
+
+                    <button
+                        type="reset"
+                        class="btn btn-warning"
+                    >
+
+                        Reset
+
+                    </button>
+
+                    <a
+                        href="/hr/dashboard"
+                        class="btn btn-secondary"
+                    >
+
+                        Back
+
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<%- include("../partials/footer") %>
