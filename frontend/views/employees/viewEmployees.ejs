@@ -24,17 +24,75 @@
 
                 <div class="page-actions">
 
-                    <a href="/hr/dashboard" class="btn btn-secondary">
-
+                    <a
+                        href="/hr/dashboard"
+                        class="btn btn-secondary"
+                    >
                         Back to Dashboard
-
                     </a>
 
-                    <a href="/hr/employees/create" class="btn btn-success">
-
+                    <a
+                        href="/hr/employees/create"
+                        class="btn btn-success"
+                    >
                         Create Employee
-
                     </a>
+
+                </div>
+
+            </div>
+
+            <!-- ==========================================
+                 EMPLOYEE STATISTICS
+            ========================================== -->
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+
+                    <h4>Total Employees</h4>
+
+                    <h2>
+
+                        <%= stats.totalEmployees %>
+
+                    </h2>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <h4>Active Employees</h4>
+
+                    <h2>
+
+                        <%= stats.activeEmployees %>
+
+                    </h2>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <h4>Inactive Employees</h4>
+
+                    <h2>
+
+                        <%= stats.inactiveEmployees %>
+
+                    </h2>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <h4>New Today</h4>
+
+                    <h2>
+
+                        <%= stats.newEmployees %>
+
+                    </h2>
 
                 </div>
 
@@ -59,21 +117,13 @@
                         <tr>
 
                             <th>S.No</th>
-
                             <th>Employee ID</th>
-
                             <th>Name</th>
-
                             <th>Email</th>
-
                             <th>Phone</th>
-
                             <th>Department</th>
-
                             <th>Designation</th>
-
                             <th>Status</th>
-
                             <th>Actions</th>
 
                         </tr>
@@ -86,51 +136,27 @@
 
                             <tr>
 
-                                <td>
+                                <td><%= index + 1 %></td>
 
-                                    <%= index + 1 %>
+                                <td><%= employee.employeeId %></td>
 
-                                </td>
+                                <td><%= employee.name %></td>
 
-                                <td>
+                                <td><%= employee.email %></td>
 
-                                    <%= employee.employeeId %>
+                                <td><%= employee.phone %></td>
 
-                                </td>
+                                <td><%= employee.department %></td>
 
-                                <td>
-
-                                    <%= employee.name %>
-
-                                </td>
+                                <td><%= employee.designation %></td>
 
                                 <td>
 
-                                    <%= employee.email %>
+                                    <span class="<%= employee.status === 'Active' ? 'status-active' : 'status-inactive' %>">
 
-                                </td>
+                                        <%= employee.status %>
 
-                                <td>
-
-                                    <%= employee.phone %>
-
-                                </td>
-
-                                <td>
-
-                                    <%= employee.department %>
-
-                                </td>
-
-                                <td>
-
-                                    <%= employee.designation %>
-
-                                </td>
-
-                                <td>
-
-                                    <%= employee.status %>
+                                    </span>
 
                                 </td>
 
@@ -140,20 +166,16 @@
                                         href="/hr/employees/edit/<%= employee._id %>"
                                         class="btn btn-warning"
                                     >
-
                                         Edit
-
                                     </a>
 
-                                    <a
-                                        href="/hr/employees/delete/<%= employee._id %>"
-                                        class="btn btn-secondary"
-                                        onclick="return confirm('Delete this employee?')"
+                                    <button
+                                        type="button"
+                                        class="btn btn-danger"
+                                        onclick="openDeleteModal('<%= employee._id %>','<%= employee.name %>')"
                                     >
-
                                         Delete
-
-                                    </a>
+                                    </button>
 
                                 </td>
 
@@ -172,5 +194,54 @@
     </div>
 
 </div>
+
+<!-- ==================================================
+DELETE EMPLOYEE MODAL
+================================================== -->
+
+<div id="deleteModal" class="modal-overlay">
+
+    <div class="modal-box">
+
+        <h2>Delete Employee</h2>
+
+        <p>Are you sure you want to delete</p>
+
+        <h3 id="deleteEmployeeName"></h3>
+
+        <p class="warning-text">
+
+            This action cannot be undone.
+
+        </p>
+
+        <div class="modal-buttons">
+
+            <button
+                type="button"
+                class="btn btn-secondary"
+                onclick="closeDeleteModal()"
+            >
+
+                No
+
+            </button>
+
+            <a
+                id="confirmDeleteBtn"
+                class="btn btn-danger"
+            >
+
+                Yes, Delete
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="/js/employee.js"></script>
 
 <%- include("../partials/footer") %>

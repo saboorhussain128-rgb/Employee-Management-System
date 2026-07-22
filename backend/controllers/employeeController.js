@@ -215,13 +215,43 @@ exports.viewEmployees = async (req, res) => {
 
     try {
 
-        const employees = await Employee.find()
+        const employees = await Employee.find().sort({
 
-            .sort({
+            createdAt: -1
 
-                createdAt: -1
+        });
 
-            });
+        const stats = {
+
+            totalEmployees: await Employee.countDocuments(),
+
+            activeEmployees: await Employee.countDocuments({
+
+                status: "Active"
+
+            }),
+
+            inactiveEmployees: await Employee.countDocuments({
+
+                status: "Inactive"
+
+            }),
+
+            newEmployees: await Employee.countDocuments({
+
+                createdAt: {
+
+                    $gte: new Date(
+
+                        new Date().setHours(0,0,0,0)
+
+                    )
+
+                }
+
+            })
+
+        };
 
         res.render(
 
@@ -233,7 +263,9 @@ exports.viewEmployees = async (req, res) => {
 
                 user: req.session.user,
 
-                employees
+                employees,
+
+                stats
 
             }
 
@@ -241,9 +273,11 @@ exports.viewEmployees = async (req, res) => {
 
     }
 
-    catch (error) {
+    catch(error){
 
         console.log(error);
+
+        res.redirect("/hr/dashboard");
 
     }
 
