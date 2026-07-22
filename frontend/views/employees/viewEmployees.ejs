@@ -12,13 +12,21 @@
 
         <div class="page-content">
 
+            <!-- ==========================================
+                 PAGE HEADER
+            ========================================== -->
+
             <div class="page-header">
 
                 <div>
 
                     <h1>Employees</h1>
 
-                    <p>Manage all employees in the Employee Management System.</p>
+                    <p>
+
+                        Manage all employees in the Employee Management System.
+
+                    </p>
 
                 </div>
 
@@ -28,14 +36,18 @@
                         href="/hr/dashboard"
                         class="btn btn-secondary"
                     >
-                        Back to Dashboard
+
+                        ← Dashboard
+
                     </a>
 
                     <a
                         href="/hr/employees/create"
                         class="btn btn-success"
                     >
-                        Create Employee
+
+                        + Create Employee
+
                     </a>
 
                 </div>
@@ -98,94 +110,197 @@
 
             </div>
 
-            <% if (employees.length === 0) { %>
+            <!-- ==========================================
+                 SEARCH BAR
+            ========================================== -->
+
+            <div class="search-card">
+
+                <form
+                    action="/hr/employees"
+                    method="GET"
+                    class="search-form"
+                >
+
+                    <input
+                        type="text"
+                        name="search"
+                        placeholder="🔍 Search by Employee ID, Name, Email, Department or Designation..."
+                        value="<%= search || '' %>"
+                    >
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+
+                        Search
+
+                    </button>
+
+                    <a
+                        href="/hr/employees"
+                        class="btn btn-secondary"
+                    >
+
+                        Reset
+
+                    </a>
+
+                </form>
+
+            </div>
+
+            <!-- ==========================================
+                 EMPLOYEE TABLE
+            ========================================== -->
+
+            <% if(employees.length === 0){ %>
 
                 <div class="dashboard-box">
 
-                    <h2>No Employees Found</h2>
+                    <h2>
 
-                    <p>No employee records have been created yet.</p>
+                        No Employees Found
+
+                    </h2>
+
+                    <p>
+
+                        No employee records have been created yet.
+
+                    </p>
 
                 </div>
 
             <% } else { %>
 
-                <table class="employee-table">
+                <div class="table-card">
 
-                    <thead>
+                    <table class="employee-table">
 
-                        <tr>
-
-                            <th>S.No</th>
-                            <th>Employee ID</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Department</th>
-                            <th>Designation</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                        <% employees.forEach(function(employee,index){ %>
+                        <thead>
 
                             <tr>
 
-                                <td><%= index + 1 %></td>
+                                <th>S.No</th>
 
-                                <td><%= employee.employeeId %></td>
+                                <th>Employee ID</th>
 
-                                <td><%= employee.name %></td>
+                                <th>Name</th>
 
-                                <td><%= employee.email %></td>
+                                <th>Email</th>
 
-                                <td><%= employee.phone %></td>
+                                <th>Phone</th>
 
-                                <td><%= employee.department %></td>
+                                <th>Department</th>
 
-                                <td><%= employee.designation %></td>
+                                <th>Designation</th>
 
-                                <td>
+                                <th>Status</th>
 
-                                    <span class="<%= employee.status === 'Active' ? 'status-active' : 'status-inactive' %>">
-
-                                        <%= employee.status %>
-
-                                    </span>
-
-                                </td>
-
-                                <td>
-
-                                    <a
-                                        href="/hr/employees/edit/<%= employee._id %>"
-                                        class="btn btn-warning"
-                                    >
-                                        Edit
-                                    </a>
-
-                                    <button
-                                        type="button"
-                                        class="btn btn-danger"
-                                        onclick="openDeleteModal('<%= employee._id %>','<%= employee.name %>')"
-                                    >
-                                        Delete
-                                    </button>
-
-                                </td>
+                                <th>Actions</th>
 
                             </tr>
 
-                        <% }) %>
+                        </thead>
 
-                    </tbody>
+                        <tbody>
 
-                </table>
+                            <% employees.forEach(function(employee,index){ %>
+
+                                <tr>
+
+                                    <td>
+
+                                        <%= index + 1 %>
+
+                                    </td>
+
+                                    <td>
+
+                                        <%= employee.employeeId %>
+
+                                    </td>
+
+                                    <td>
+
+                                        <%= employee.name %>
+
+                                    </td>
+
+                                    <td>
+
+                                        <%= employee.email %>
+
+                                    </td>
+
+                                    <td>
+
+                                        <%= employee.phone %>
+
+                                    </td>
+
+                                    <td>
+
+                                        <%= employee.department %>
+
+                                    </td>
+
+                                    <td>
+
+                                        <%= employee.designation %>
+
+                                    </td>
+
+                                    <td>
+
+                                        <span class="<%= employee.status === 'Active' ? 'status-active' : 'status-inactive' %>">
+
+                                            <%= employee.status %>
+
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+
+                                        <div class="action-buttons">
+
+                                            <a
+                                                href="/hr/employees/edit/<%= employee._id %>"
+                                                class="btn btn-warning btn-sm"
+                                                title="Edit Employee"
+                                            >
+
+                                                ✏ Edit
+
+                                            </a>
+
+                                            <button
+                                                type="button"
+                                                class="btn btn-danger btn-sm"
+                                                title="Delete Employee"
+                                                onclick="openDeleteModal('<%= employee._id %>','<%= employee.name %>')"
+                                            >
+
+                                                🗑 Delete
+
+                                            </button>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                            <% }) %>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
 
             <% } %>
 
@@ -196,67 +311,27 @@
 </div>
 
 <!-- ==========================================
-SEARCH BAR
+DELETE EMPLOYEE MODAL
 ========================================== -->
 
-<div class="search-box">
-
-    <form
-        action="/hr/employees"
-        method="GET"
-    >
-
-        <input
-
-            type="text"
-
-            name="search"
-
-            placeholder="Search by Employee ID, Name, Email, Department or Designation..."
-
-            value="<%= search %>"
-
-        >
-
-        <button
-
-            type="submit"
-
-            class="btn btn-primary"
-
-        >
-
-            Search
-
-        </button>
-
-        <a
-
-            href="/hr/employees"
-
-            class="btn btn-secondary"
-
-        >
-
-            Reset
-
-        </a>
-
-    </form>
-
-</div>
-
-<!-- ==================================================
-DELETE EMPLOYEE MODAL
-================================================== -->
-
-<div id="deleteModal" class="modal-overlay">
+<div
+    id="deleteModal"
+    class="modal-overlay"
+>
 
     <div class="modal-box">
 
-        <h2>Delete Employee</h2>
+        <h2>
 
-        <p>Are you sure you want to delete</p>
+            Delete Employee
+
+        </h2>
+
+        <p>
+
+            Are you sure you want to delete
+
+        </p>
 
         <h3 id="deleteEmployeeName"></h3>
 
@@ -274,7 +349,7 @@ DELETE EMPLOYEE MODAL
                 onclick="closeDeleteModal()"
             >
 
-                No
+                Cancel
 
             </button>
 
