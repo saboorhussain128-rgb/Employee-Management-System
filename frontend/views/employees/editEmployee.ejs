@@ -1,5 +1,7 @@
 <%- include("../partials/head", { title: title }) %>
 
+<link rel="stylesheet" href="/css/employee.css">
+
 <div class="dashboard-container">
 
     <%- include("../partials/sidebar") %>
@@ -8,25 +10,384 @@
 
         <%- include("../partials/header", { user: user }) %>
 
-        <div class="content">
+        <div class="page-content">
 
-            <h1>Edit Employee</h1>
+            <div class="page-header">
 
-            <hr><br>
+                <div>
 
-            <p>
+                    <h1>Edit Employee</h1>
 
-                Edit employee page is under development.
+                    <p>Update employee information.</p>
 
-            </p>
+                </div>
 
-            <br>
+                <div class="page-actions">
 
-            <a href="/hr/dashboard">
+                    <a
+                        href="/hr/dashboard"
+                        class="btn btn-secondary"
+                    >
+                        Back to Dashboard
+                    </a>
 
-                ← Back to Dashboard
+                    <a
+                        href="/hr/employees"
+                        class="btn btn-primary"
+                    >
+                        View Employees
+                    </a>
 
-            </a>
+                </div>
+
+            </div>
+
+            <% if(typeof error !== "undefined" && error){ %>
+
+                <div class="alert">
+
+                    <%= error %>
+
+                </div>
+
+            <% } %>
+
+            <form
+                action="/hr/employees/edit/<%= employee._id %>"
+                method="POST"
+                class="employee-form"
+            >
+
+                <div class="form-grid">
+
+                    <!-- Employee ID -->
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Employee ID
+
+                        </label>
+
+                        <input
+                            type="text"
+                            value="<%= employee.employeeId %>"
+                            readonly
+                        >
+
+                    </div>
+
+                    <!-- Full Name -->
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Full Name <span class="required">*</span>
+
+                        </label>
+
+                        <input
+                            type="text"
+                            name="name"
+                            value="<%= employee.name %>"
+                            required
+                        >
+
+                    </div>
+
+                    <!-- Email -->
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Email <span class="required">*</span>
+
+                        </label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            value="<%= employee.email %>"
+                            required
+                        >
+
+                    </div>
+
+                    <!-- Phone -->
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Phone <span class="required">*</span>
+
+                        </label>
+
+                        <input
+                            type="text"
+                            name="phone"
+                            value="<%= employee.phone %>"
+                            required
+                        >
+
+                    </div>
+
+                    <!-- Gender -->
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Gender
+
+                        </label>
+
+                        <select
+                            name="gender"
+                        >
+
+                            <option
+                                value="Male"
+                                <%= employee.gender==="Male" ? "selected" : "" %>
+                            >
+                                Male
+                            </option>
+
+                            <option
+                                value="Female"
+                                <%= employee.gender==="Female" ? "selected" : "" %>
+                            >
+                                Female
+                            </option>
+
+                            <option
+                                value="Other"
+                                <%= employee.gender==="Other" ? "selected" : "" %>
+                            >
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- Department -->
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Department <span class="required">*</span>
+
+                        </label>
+
+                        <input
+                            type="text"
+                            name="department"
+                            value="<%= employee.department %>"
+                            required
+                        >
+
+                    </div>
+
+                    <!-- Designation -->
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Designation <span class="required">*</span>
+
+                        </label>
+
+                        <input
+                            type="text"
+                            name="designation"
+                            value="<%= employee.designation %>"
+                            required
+                        >
+
+                    </div>
+
+                    <!-- Joining Date -->
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Joining Date <span class="required">*</span>
+
+                        </label>
+
+                        <input
+                            type="date"
+                            name="joiningDate"
+                            value="<%= employee.joiningDate ? employee.joiningDate.toISOString().split('T')[0] : '' %>"
+                            required
+                        >
+
+                    </div>
+
+                    <!-- Salary -->
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Salary
+
+                        </label>
+
+                        <input
+                            type="number"
+                            name="salary"
+                            value="<%= employee.salary %>"
+                        >
+
+                    </div>
+
+                    <!-- Address -->
+
+                    <div class="form-group full-width">
+
+                        <label>
+
+                            Address
+
+                        </label>
+
+                        <textarea
+                            name="address"
+                            rows="3"
+                        ><%= employee.address %></textarea>
+
+                    </div>
+
+                    <!-- Emergency Contact -->
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Emergency Contact
+
+                        </label>
+
+                        <input
+                            type="text"
+                            name="emergencyContact"
+                            value="<%= employee.emergencyContact %>"
+                        >
+
+                    </div>
+
+                    <!-- Blood Group -->
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Blood Group
+
+                        </label>
+
+                        <select
+                            name="bloodGroup"
+                        >
+
+                            <option value="">Select</option>
+
+                            <option value="A+" <%= employee.bloodGroup==="A+" ? "selected":"" %>>A+</option>
+                            <option value="A-" <%= employee.bloodGroup==="A-" ? "selected":"" %>>A-</option>
+                            <option value="B+" <%= employee.bloodGroup==="B+" ? "selected":"" %>>B+</option>
+                            <option value="B-" <%= employee.bloodGroup==="B-" ? "selected":"" %>>B-</option>
+                            <option value="AB+" <%= employee.bloodGroup==="AB+" ? "selected":"" %>>AB+</option>
+                            <option value="AB-" <%= employee.bloodGroup==="AB-" ? "selected":"" %>>AB-</option>
+                            <option value="O+" <%= employee.bloodGroup==="O+" ? "selected":"" %>>O+</option>
+                            <option value="O-" <%= employee.bloodGroup==="O-" ? "selected":"" %>>O-</option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- Status -->
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Status
+
+                        </label>
+
+                        <select
+                            name="status"
+                        >
+
+                            <option
+                                value="Active"
+                                <%= employee.status==="Active" ? "selected":"" %>
+                            >
+                                Active
+                            </option>
+
+                            <option
+                                value="Inactive"
+                                <%= employee.status==="Inactive" ? "selected":"" %>
+                            >
+                                Inactive
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div class="button-group">
+
+                    <button
+                        type="submit"
+                        class="btn btn-success"
+                    >
+
+                        Update Employee
+
+                    </button>
+
+                    <button
+                        type="reset"
+                        class="btn btn-warning"
+                    >
+
+                        Reset
+
+                    </button>
+
+                    <a
+                        href="/hr/employees"
+                        class="btn btn-primary"
+                    >
+
+                        Back
+
+                    </a>
+
+                    <a
+                        href="/hr/dashboard"
+                        class="btn btn-secondary"
+                    >
+
+                        Dashboard
+
+                    </a>
+
+                </div>
+
+            </form>
 
         </div>
 
